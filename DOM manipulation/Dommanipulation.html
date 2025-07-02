@@ -1,0 +1,56 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portfolio Form</title>
+  <style>
+    body { font-family: Arial; padding: 20px; background: #f0f0f0; }
+    form { background: #fff; padding: 20px; border-radius: 8px; }
+    .error { color: red; }
+  </style>
+</head>
+<body>
+  <h2>Contact Form</h2>
+  <form id="contactForm">
+    <label>Name: <input type="text" id="name" required /></label><br /><br />
+    <label>Email: <input type="email" id="email" required /></label><br /><br />
+    <label>Message: <textarea id="message" required></textarea></label><br /><br />
+    <button type="submit">Submit</button>
+    <p id="status"></p>
+  </form>
+
+  <script>
+    const form = document.getElementById("contactForm");
+    const status = document.getElementById("status");
+
+    function validateEmail(email) {
+      return /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email);
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const message = document.getElementById("message").value.trim();
+
+      if (!name || !email || !message) {
+        status.textContent = "All fields are required.";
+        status.className = "error";
+        return;
+      }
+
+      if (!validateEmail(email)) {
+        status.textContent = "Invalid email format.";
+        status.className = "error";
+        return;
+      }
+
+      status.textContent = "Form submitted successfully!";
+      status.className = "";
+      form.reset();
+    });
+  </script>
+</body>
+</html>
